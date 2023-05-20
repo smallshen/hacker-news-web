@@ -27,7 +27,16 @@
         <link rel="mask-icon" href="https://news.ycombinator.com/favicon.ico" color="#ff6600" />
 
         <script>
-            function a(b){"dark"===b&&(document.documentElement.classList.contains("dark-theme")||document.documentElement.classList.add("dark-theme"));"light"===b&&document.documentElement.classList.contains("dark-theme")&&document.documentElement.classList.remove("dark-theme")}var c=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;null==c?a("dark"):a(c?"dark":"light");
+            function a(b) {
+                "dark" === b &&
+                    (document.documentElement.classList.contains("dark-theme") ||
+                        document.documentElement.classList.add("dark-theme"))
+                "light" === b &&
+                    document.documentElement.classList.contains("dark-theme") &&
+                    document.documentElement.classList.remove("dark-theme")
+            }
+            var c = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+            null == c ? a("dark") : a(c ? "dark" : "light")
         </script>
 
         %sveltekit.head%
