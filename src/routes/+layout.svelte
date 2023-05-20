@@ -24,6 +24,7 @@
         </a>
 
         <ol>
+            <li><a class="link" href="/new">new</a></li>
             <li><a class="link" href="/show">show</a></li>
             <li><a class="link" href="/ask">ask</a></li>
             <li><a class="link" href="/jobs">jobs</a></li>
