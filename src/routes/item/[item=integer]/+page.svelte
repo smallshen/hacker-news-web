@@ -10,7 +10,7 @@
     $: item = data.item
     $: possibleTitle =
         (item.type !== "comment" && item.type !== "pollopt" ? item.title : item.url) || item.text?.slice(0, 100) + "..."
-    $: timeAgo = item.time ? dateDiff(item.time * 1000) : undefined
+    $: timeAgo = item.created_at_i ? dateDiff(item.created_at_i * 1000) : undefined
 
     $: points = item.score || item.descendants
 </script>
@@ -39,8 +39,8 @@
 
                 <p>
                     by
-                    <a href="/user/{item.by}">
-                        <span property="author">{item.by}</span>
+                    <a href="/user/{item.by || item.author}">
+                        <span property="author">{item.by || item.author}</span>
                     </a>
                 </p>
 
@@ -60,29 +60,31 @@
         </div>
     </article>
 
-    <div class="divider"></div>
+    <div class="divider" />
 
     {#if item.text}
         <HackerNewsText s={item.text} />
     {/if}
 
     <ul>
-        {#each data.kids as kid (kid.id)}
-            <li>
-                <CommentCard comment={kid} />
-            </li>
+        {#each data.item.children as child (child.id)}
+            {#if child.author}
+                <li>
+                    <CommentCard comment={child} />
+                </li>
+            {/if}
         {/each}
 
-        {#if data.prevLink || data.nextLink}
-            <li class="pagination">
-                {#if data.prevLink}
-                    <a href={data.prevLink}> Previous </a>
-                {/if}
-                {#if data.nextLink}
-                    <a href={data.nextLink}> More </a>
-                {/if}
-            </li>
-        {/if}
+        <!--{#if data.prevLink || data.nextLink}-->
+        <!--    <li class="pagination">-->
+        <!--        {#if data.prevLink}-->
+        <!--            <a href={data.prevLink}> Previous </a>-->
+        <!--        {/if}-->
+        <!--        {#if data.nextLink}-->
+        <!--            <a href={data.nextLink}> More </a>-->
+        <!--        {/if}-->
+        <!--    </li>-->
+        <!--{/if}-->
     </ul>
 </main>
 

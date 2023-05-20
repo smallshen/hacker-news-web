@@ -2,17 +2,18 @@
     import { dateDiff } from "$lib/daysDiff"
     import type { CommentWithKids } from "./+page"
     import HackerNewsText from "$lib/components/HackerNewsText.svelte"
+    import type { ItemResponse } from "$lib/hacker-news/algolia-types"
 
-    export let comment: CommentWithKids
+    export let comment: ItemResponse
 
-    $: timeDiffText = dateDiff(comment.time! * 1000)
+    $: timeDiffText = dateDiff(comment.created_at_i! * 1000)
 </script>
 
 <div class="card" id={comment.id}>
     <div class="meta-info body2">
-        <a href="/user/{comment.by}">
+        <a href="/user/{comment.author}">
             <p>
-                <span property="author">{comment.by}</span>
+                <span property="author">{comment.author}</span>
             </p>
         </a>
 
@@ -24,12 +25,14 @@
     <HackerNewsText s={comment.text} />
 </div>
 
-{#if comment.kidsData}
+{#if comment.children}
     <ol>
-        {#each comment.kidsData as kid}
-            <li>
-                <svelte:self comment={kid} />
-            </li>
+        {#each comment.children as child (child.id)}
+            {#if child.author}
+                <li>
+                    <svelte:self comment={child} />
+                </li>
+            {/if}
         {/each}
     </ol>
 {/if}
