@@ -1,6 +1,7 @@
 import type { PageLoad } from "./$types"
 import type { Comment, HackerNewsItems } from "$lib/hacker-news/api-types"
 import { sanitizeItem } from "$lib/hacker-news/api-types"
+import { hasMore } from "$lib/pagination/hasMore"
 
 export type CommentWithKids = Comment & { kidsData?: Comment[] }
 
@@ -30,16 +31,37 @@ export const load = (async ({ fetch, depends, params, url }) => {
         return data.filter((k) => k.deleted !== true)
     }
 
-    let kids = await getKids(item.kids || [])
+    const ids = (item.kids || []).slice((page - 1) * pageSize, page * pageSize)
+    let kids = await getKids(ids)
 
     kids = kids.filter((k) => k.deleted !== true)
 
     const kidsCount = kids.length
 
-    const prevLink = page === 1 ? null : page === 2 ? `/item/${params.item}` : `/item/${params.item}?p=${page - 1}`
-    const nextLink = page === Math.ceil(kidsCount / pageSize) ? null : `/item/${params.item}?p=${page + 1}`
-
     depends(`id-${params.item}`)
+
+    if (item.dead) {
+        // @ts-ignore
+        item.title = "[dead]"
+        return {
+            item,
+            kids
+        }
+    }
+
+    if (item.deleted) {
+        // @ts-ignore
+        item.title = "[deleted]"
+        return {
+            item,
+            kids
+        }
+    }
+
+    const hasNextLink = hasMore(item.kids?.length || 0, page, pageSize)
+    const prevLink = page === 1 ? undefined : page === 2 ? `/item/${params.item}` : `/item/${params.item}?p=${page - 1}`
+    // nextLink: page === 1 ? `/?p=2` : page === Math.ceil(topStories.length / pageSize) ? null : `/?p=${page + 1}`
+    const nextLink = hasNextLink ? `/item/${params.item}?p=${page + 1}` : undefined
 
     return {
         item,

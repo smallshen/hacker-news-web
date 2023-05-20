@@ -1,6 +1,7 @@
 import type { PageLoad } from "./$types"
 import type { HackerNewsItem } from "$lib/hacker-news/api-types"
 import { sanitizeItem } from "$lib/hacker-news/api-types"
+import { hasMore } from "$lib/pagination/hasMore"
 
 const pageSize = 30
 
@@ -26,9 +27,11 @@ export const load = (async ({ fetch, depends, url }) => {
 
     depends(`job-stories:page-${page}`)
 
+    const hasNextLink = hasMore(jobIds.length, page, pageSize)
+
     return {
         jobs: jobs,
-        prevLink: page === 1 ? null : page - 1 === 1 ? "/" : `/?p=${page - 1}`,
-        nextLink: page === 1 ? `/?p=2` : page === Math.ceil(jobIds.length / pageSize) ? null : `/?p=${page + 1}`
+        prevLink: page === 1 ? undefined : page - 1 === 1 ? "/jobs" : `/jobs?p=${page - 1}`,
+        nextLink: hasNextLink ? `/jobs?p=${page + 1}` : undefined
     }
 }) satisfies PageLoad

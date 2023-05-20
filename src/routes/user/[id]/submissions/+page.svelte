@@ -15,14 +15,16 @@
             </li>
         {/each}
 
-        <li class="pagination">
-            {#if data.prevLink}
-                <a href={data.prevLink}> Previous </a>
-            {/if}
-            {#if data.nextLink}
-                <a href={data.nextLink}> More </a>
-            {/if}
-        </li>
+        {#if data.nextLink || data.prevLink}
+            <li class="pagination">
+                {#if data.prevLink}
+                    <a href={data.prevLink}> Previous </a>
+                {/if}
+                {#if data.nextLink}
+                    <a href={data.nextLink}> More </a>
+                {/if}
+            </li>
+        {/if}
     </ol>
 </main>
 

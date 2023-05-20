@@ -1,6 +1,7 @@
 import type { PageLoad } from "./$types"
 import type { HackerNewsItem } from "$lib/hacker-news/api-types"
 import { sanitizeItem } from "$lib/hacker-news/api-types"
+import { hasMore } from "$lib/pagination/hasMore"
 
 const pageSize = 30
 
@@ -26,11 +27,12 @@ export const load = (async ({ fetch, depends, url }) => {
 
     depends(`ask-stories:page-${page}`)
 
+    const hasNextLink = hasMore(topAsk.length, page, pageSize)
+
     return {
         asks: asks,
         total: topAsk.length,
-        prevLink: page === 1 ? null : page - 1 === 1 ? "/" : `/?p=${page - 1}`,
-        nextLink: page === 1 ? `/?p=2` : page === Math.ceil(topAsk.length / pageSize) ? null : `/?p=${page + 1}`
-        // pageNumbers: Array.from({ length: Math.ceil(topStories.length / pageSize) }, (_, i) => i + 1)
+        prevLink: page === 1 ? undefined : page - 1 === 1 ? "/ask" : `/ask?p=${page - 1}`,
+        nextLink: hasNextLink ? `/ask?p=${page + 1}` : undefined
     }
 }) satisfies PageLoad
