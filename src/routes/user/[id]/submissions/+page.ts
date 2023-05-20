@@ -31,7 +31,17 @@ export const load = (async ({ fetch, depends, url, params }) => {
 
     return {
         submits: submits,
-        prevLink: page === 1 ? null : page - 1 === 1 ? "/" : `/?p=${page - 1}`,
-        nextLink: page === 1 ? `/?p=2` : page === Math.ceil(submitIds.length / pageSize) ? null : `/?p=${page + 1}`
+        prevLink:
+            page === 1
+                ? null
+                : page - 1 === 1
+                ? `/user/${params.id}/submissions`
+                : `/user/${params.id}/submissions?p=${page - 1}`,
+        nextLink:
+            page === 1
+                ? `/user/${params.id}/submissions?p=2`
+                : page === Math.ceil(submitIds.length / pageSize)
+                ? null
+                : `/user/${params.id}/submissions?p=${page + 1}`
     }
 }) satisfies PageLoad

@@ -47,4 +47,8 @@
         width: 100%;
         margin-top: 1rem;
     }
+
+    td {
+        width: 100%;
+    }
 </style>

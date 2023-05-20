@@ -7,7 +7,7 @@
 </script>
 
 <main>
-    <h1 class="subtitle1">{$page.params.id}'s submissions</h1>
+    <h1 class="subtitle1 title">{$page.params.id}'s submissions</h1>
     <ol>
         {#each data.submits as item (item.id)}
             <li>
@@ -29,6 +29,10 @@
 <style>
     main {
         margin: 0 auto;
+    }
+
+    .title {
+        view-transition-name: user-submits-title;
     }
 
     ol {

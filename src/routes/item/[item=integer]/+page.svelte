@@ -8,7 +8,8 @@
     export let data: PageData
 
     $: item = data.item
-    $: possibleTitle = item.type !== "comment" && item.type !== "pollopt" ? item.title : item.url
+    $: possibleTitle =
+        (item.type !== "comment" && item.type !== "pollopt" ? item.title : item.url) || item.text?.slice(0, 100) + "..."
     $: timeAgo = item.time ? dateDiff(item.time * 1000) : undefined
 
     $: points = item.score || item.descendants
