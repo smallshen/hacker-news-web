@@ -24,10 +24,16 @@
         <div class="main-info transition-box">
             {#if item.url}
                 <a class="link" href={item.url} target="_blank">
-                    <h1 class="subtitle1 title" property="name headline title">{possibleTitle || data.url}</h1>
+                    <h1 class="subtitle1 title" property="name headline title">{possibleTitle }</h1>
                 </a>
             {:else}
-                <h1 class="subtitle1 title" property="name headline title">{possibleTitle || data.url}</h1>
+                <h1 class="subtitle1 title" property="name headline title">
+                    {#if item.type === "comment"}
+                        {@html item.text}
+                    {:else}
+                        {possibleTitle}
+                    {/if}
+                </h1>
             {/if}
 
             <div class="main-info-meta body1">
