@@ -60,32 +60,30 @@
         </div>
     </article>
 
-    <div class="divider" />
+    <div class="divider"></div>
 
-    {#if item.type === "job"}
-        {#if item.text}
-            <HackerNewsText s={item.text} />
-        {/if}
-    {:else}
-        <ul>
-            {#each data.kids as kid (kid.id)}
-                <li>
-                    <CommentCard comment={kid} />
-                </li>
-            {/each}
-
-            {#if data.prevLink || data.nextLink}
-                <li class="pagination">
-                    {#if data.prevLink}
-                        <a href={data.prevLink}> Previous </a>
-                    {/if}
-                    {#if data.nextLink}
-                        <a href={data.nextLink}> More </a>
-                    {/if}
-                </li>
-            {/if}
-        </ul>
+    {#if item.text}
+        <HackerNewsText s={item.text} />
     {/if}
+
+    <ul>
+        {#each data.kids as kid (kid.id)}
+            <li>
+                <CommentCard comment={kid} />
+            </li>
+        {/each}
+
+        {#if data.prevLink || data.nextLink}
+            <li class="pagination">
+                {#if data.prevLink}
+                    <a href={data.prevLink}> Previous </a>
+                {/if}
+                {#if data.nextLink}
+                    <a href={data.nextLink}> More </a>
+                {/if}
+            </li>
+        {/if}
+    </ul>
 </main>
 
 <slot />
