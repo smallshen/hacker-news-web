@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Hacker&nbsp;News</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#FCFCFC" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)" />
+        <meta name="referrer" content="strict-origin" />
+
+        <link
+            rel="stylesheet"
+            href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"
+            media="print"
+            onload="this.media='all'"
+        />
+        <link
+            rel="stylesheet"
+            href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"
+            media="print"
+            onload="this.media='all'"
+        />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="https://news.ycombinator.com/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="https://news.ycombinator.com/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="https://news.ycombinator.com/favicon.ico" />
+        <link rel="mask-icon" href="https://news.ycombinator.com/favicon.ico" color="#ff6600" />
+
+        <script>
+            function a(b){"dark"===b&&(document.documentElement.classList.contains("dark-theme")||document.documentElement.classList.add("dark-theme"));"light"===b&&document.documentElement.classList.contains("dark-theme")&&document.documentElement.classList.remove("dark-theme")}var c=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;null==c?a("dark"):a(c?"dark":"light");
+        </script>
+
+        %sveltekit.head%
+    </head>
+
+    <body>
+        <div style="display: contents">%sveltekit.body%</div>
+    </body>
+</html>

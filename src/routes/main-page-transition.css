@@ -1,0 +1,4 @@
+::view-transition-group(item-*) {
+    animation: none;
+    mix-blend-mode: normal;
+}
