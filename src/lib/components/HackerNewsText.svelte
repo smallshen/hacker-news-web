@@ -14,6 +14,7 @@
         display: flex;
         flex-direction: column;
         line-height: 1.8;
+        gap: 1.2rem;
     }
 
     .text :global(pre) {
