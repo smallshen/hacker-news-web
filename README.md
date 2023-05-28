@@ -1,5 +1,8 @@
 # Hacker News Web App
 
+
+### HN Thread: https://news.ycombinator.com/item?id=36010498
+
 ## Purpose
 
 My high school just ended, it is a terrible experience for me. All my skills are developed by self-learning, not from school.
